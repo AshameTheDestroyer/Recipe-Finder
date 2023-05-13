@@ -1,7 +1,18 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import reactRefresh from "@vitejs/plugin-react-refresh";
+import { resolve } from "path";
 
 export default defineConfig({
     base: "/Recipe-Finder/",
-    plugins: [react()],
+    plugins: [reactRefresh()],
+    build: {
+        outDir: "dist",
+        assetsDir: "assets",
+        emptyOutDir: true,
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname, "index.html"),
+            },
+        },
+    },
 });
