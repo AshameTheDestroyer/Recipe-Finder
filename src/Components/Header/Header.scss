@@ -1,0 +1,83 @@
+@use "../Page/Page.scss";
+
+#page header {
+    display: flex;
+
+    position: sticky;
+    top: 0;
+
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: repeat(2, 1fr);
+    place-content: center stretch;
+    place-items: center stretch;
+    gap: 0 2rem;
+
+    padding: 2rem;
+
+    #logo {
+        display: flex;
+        place-content: center;
+        place-items: center;
+        place-self: start;
+
+        padding: 1rem;
+
+        figure {
+            position: relative;
+
+            width: 2.75rem;
+            aspect-ratio: 1;
+
+            padding: 0.75rem;
+
+            background-image: var(--main-background-image);
+
+            border-radius: 100%;
+
+            img {
+                position: absolute;
+                inset: 0;
+
+                width: 60%;
+
+                margin: auto;
+
+                transition: filter 500ms;
+            }
+        }
+
+        p {
+            font-family: Pacifico;
+            font-size: x-large;
+            font-weight: bold;
+
+            padding: 0 1rem;
+
+            background-color: white;
+            background-image: var(--main-background-image);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    #theme-toggle-button {
+        grid-column: 3;
+        grid-row: 2;
+        place-self: center end;
+    }
+
+    #recipe-search-bar {
+        grid-column: 1 / 3;
+        grid-row: 2;
+    }
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    #page header {
+        gap: 0 2rem;
+    }
+}

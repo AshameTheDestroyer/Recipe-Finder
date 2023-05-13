@@ -1,0 +1,47 @@
+.toggle-button {
+    $padding: 0.3rem;
+
+    width: 7rem;
+    height: 3.5rem;
+
+    background-color: var(--background-darker-colour);
+
+    border-radius: 100rem;
+
+    position: relative;
+
+    padding: $padding;
+
+    figure {
+        content: "";
+
+        position: absolute;
+        top: 50%;
+        left: $padding;
+        transform: translate(0, -50%);
+
+        height: 80%;
+        aspect-ratio: 1;
+
+        border-radius: 100%;
+
+        background-image: var(--main-background-image);
+
+        transition: inset 250ms, transform 250ms;
+
+        img {
+            width: 100%;
+
+            transition: filter 500ms;
+        }
+    }
+
+    input {
+        display: none;
+
+        &:checked+figure {
+            left: calc(100% - $padding);
+            transform: translate(-100%, -50%);
+        }
+    }
+}

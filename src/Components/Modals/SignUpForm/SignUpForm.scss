@@ -1,0 +1,93 @@
+@use "../../Page/Page.scss";
+
+.signing-form {
+
+    &>figure {
+        display: none;
+    }
+
+    &>main {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto 1fr auto;
+        gap: 3rem;
+
+        padding: 4rem 6rem;
+
+        h2 {
+            background-color: white;
+            background-image: var(--main-background-image);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        &>section {
+            display: flex;
+            flex-direction: column;
+            place-content: start center;
+            place-items: start center;
+            gap: 1rem;
+
+            .custom-input-container {
+                width: 100%;
+            }
+        }
+
+        #terms-and-conditions-confirmation {
+            accent-color: var(--main-colour);
+
+            a {
+                text-decoration-color: var(--main-colour);
+            }
+
+            label::before {
+                content: " ";
+            }
+        }
+
+        .button-displayer {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            place-content: stretch;
+            place-items: stretch;
+            gap: 3rem;
+
+            button {
+                width: auto;
+            }
+        }
+    }
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    .signing-form {
+        display: flex;
+
+        overflow: hidden;
+
+        background-color: red;
+
+        max-width: 85vw;
+
+        &>figure {
+            display: flex;
+            flex-direction: column;
+            place-content: center;
+            place-items: center;
+            gap: 5rem;
+
+            padding: 5rem;
+
+            background-image: var(--main-background-image);
+
+            img {
+                width: 100%;
+                max-width: 30rem;
+                place-self: center;
+            }
+        }
+    }
+}

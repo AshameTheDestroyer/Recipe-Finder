@@ -1,0 +1,98 @@
+.custom-button {
+    --padding: 1.2rem;
+
+    position: relative;
+
+    display: flex;
+    place-content: center;
+    place-items: center;
+
+    padding: var(--padding);
+
+    border-width: 0.2rem;
+
+    transition: transform 500ms;
+
+    &:is(:hover, :focus-within) {
+        transform: scale(1.1);
+    }
+
+    &.emphasized-button {
+        background-color: var(--main-colour);
+        background-image: var(--main-background-image);
+    }
+
+    &.arrowed-button {
+
+        &.icon-button-left img {
+            transform: translate(35%, -50%) rotate(90deg) !important;
+        }
+
+        &.icon-button-right img {
+            transform: translate(-35%, -50%) rotate(-90deg) !important;
+        }
+    }
+
+    &.icon-button {
+        $padding: 4.5rem;
+
+        &.icon-button-left {
+            padding-left: $padding;
+
+            img {
+                left: 0;
+                transform: translate(35%, -50%);
+            }
+        }
+
+        &.icon-button-right {
+            padding-right: $padding;
+
+            img {
+                right: 0;
+                transform: translate(-35%, -50%);
+            }
+        }
+    }
+
+    a {
+        text-decoration: none;
+
+        display: flex;
+        place-content: center;
+        place-items: center;
+
+        pointer-events: none;
+
+        transition: color 500ms;
+    }
+
+    img {
+        position: absolute;
+        top: 50%;
+
+        width: 2.75rem;
+        aspect-ratio: 1;
+
+        transition: filter 500ms;
+    }
+}
+
+.button-displayer {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    .custom-button {
+        width: max-content;
+    }
+}
+
+.light-themed .custom-button {
+    border-width: 0.3rem;
+
+    &.arrowed-button::after {
+        filter: invert(1);
+    }
+}

@@ -1,0 +1,59 @@
+.modal-background {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+
+    padding: 2rem;
+
+    background-color: var(--half-transparent);
+
+    animation-name: modal-background-entrance;
+    animation-duration: 250ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(1, 1, 1, 1);
+
+    z-index: 2;
+
+    @keyframes modal-background-entrance {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    &>.modal {
+        background-image: var(--background-image);
+
+        border-radius: 1.5rem;
+
+        box-shadow: 1.5rem 1.5rem 1rem var(--half-transparent);
+
+        animation-name: modal-entrance;
+        animation-duration: 500ms;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        animation-direction: normal;
+        animation-timing-function: var(--best-bezier-curve);
+
+        @keyframes modal-entrance {
+
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+    }
+}

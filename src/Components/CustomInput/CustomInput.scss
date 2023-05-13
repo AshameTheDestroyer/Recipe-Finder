@@ -1,0 +1,78 @@
+.custom-input-container {
+    --padding: 1.5rem;
+    --placeholder-colour: #555;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-content: center stretch;
+    place-items: center stretch;
+
+    &.placeholder-always-shown {
+        $gap: 0.5rem;
+
+        display: flex;
+        flex-direction: column;
+        place-content: stretch;
+        place-items: stretch;
+        gap: $gap;
+
+        label {
+            bottom: 0;
+
+            display: block !important;
+        }
+
+        input {
+            order: 2;
+        }
+
+        input:placeholder-shown+label {
+            bottom: calc(-50% - $gap / 2);
+        }
+    }
+
+    &.transparent {
+        --padding: 0;
+
+        input {
+            background-color: transparent;
+
+            border-bottom: 0.2rem solid var(--background-darker-colour);
+            border-radius: 0;
+        }
+    }
+
+    &>* {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    input {
+        padding: 1rem var(--padding);
+
+
+        &:not(:placeholder-shown)+label {
+            display: none;
+        }
+
+        &:not([type=password]) {
+            text-overflow: ellipsis;
+        }
+    }
+
+    label {
+        position: relative;
+        left: var(--padding);
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        color: var(--placeholder-colour);
+
+        transition: inset 250ms;
+
+        pointer-events: none;
+    }
+}
