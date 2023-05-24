@@ -1,6 +1,12 @@
 @use "../../Page/Page.scss";
 
 .signing-form {
+    --invalid-colour: red;
+
+    width: min-content;
+
+    animation-timing-function: cubic-bezier(1, 1, 1, 1) !important;
+    animation-duration: 250ms !important;
 
     &>figure {
         display: none;
@@ -32,6 +38,16 @@
 
             .custom-input-container {
                 width: 100%;
+
+                input {
+                    transition: color 250ms, border-color 250ms;
+
+                    &:not(:placeholder-shown):invalid {
+                        color: var(--invalid-colour);
+
+                        border-bottom-color: var(--invalid-colour);
+                    }
+                }
             }
         }
 
@@ -54,6 +70,8 @@
             place-items: stretch;
             gap: 3rem;
 
+            width: max-content;
+
             button {
                 width: auto;
             }
@@ -68,24 +86,25 @@
 
         overflow: hidden;
 
-        background-color: red;
-
-        max-width: 85vw;
-
         &>figure {
+            $padding: 5rem;
+
             display: flex;
             flex-direction: column;
             place-content: center;
             place-items: center;
             gap: 5rem;
 
-            padding: 5rem;
+            flex-shrink: 1;
+
+            padding: $padding;
 
             background-image: var(--main-background-image);
 
             img {
-                width: 100%;
-                max-width: 30rem;
+                width: 20vw;
+                aspect-ratio: 1;
+
                 place-self: center;
             }
         }

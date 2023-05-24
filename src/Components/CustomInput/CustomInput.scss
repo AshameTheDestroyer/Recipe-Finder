@@ -25,10 +25,14 @@
 
         input {
             order: 2;
-        }
 
-        input:placeholder-shown+label {
-            bottom: calc(-50% - $gap / 2);
+            &:not(:focus-within)+label {
+                bottom: calc(-50% - $gap / 2);
+            }
+
+            &:not(:placeholder-shown)+label {
+                bottom: 0;
+            }
         }
     }
 
@@ -38,7 +42,7 @@
         input {
             background-color: transparent;
 
-            border-bottom: 0.2rem solid var(--background-darker-colour);
+            border-bottom: 0.2rem solid var(--half-transparent);
             border-radius: 0;
         }
     }
@@ -50,7 +54,6 @@
 
     input {
         padding: 1rem var(--padding);
-
 
         &:not(:placeholder-shown)+label {
             display: none;

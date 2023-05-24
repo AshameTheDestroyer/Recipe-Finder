@@ -1,0 +1,14 @@
+@use "../Page/Page.scss";
+
+#page>main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    #page>main {
+        flex-direction: row;
+    }
+}

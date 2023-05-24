@@ -2,7 +2,7 @@ import React from "react";
 import { createPortal } from "react-dom";
 
 import "../../Utilities/Extensions/ToClassName";
-import ComponentProps from "../../Utilities/Types/ComponentProps";
+import ComponentProps, { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 import EitherOrNeither from "../../Utilities/Types/EitherOrNeither";
 
 import "./Modal.scss";
@@ -15,7 +15,12 @@ export type ModalProps = ComponentProps & {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 } & EitherOrNeither<
     { isForm: false },
-    { isForm: true; method: FormMethods; action: string }
+    {
+        isForm: true;
+        method: FormMethods;
+        action: string;
+        events?: ComponentEventProps<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>;
+    }
 >;
 
 const MODAL_CONTAINER: HTMLElement | null = document.querySelector("#modal-container");
@@ -31,12 +36,13 @@ export default function Modal({
     action,
 
     setIsOpen,
+    events,
 }: ModalProps): React.ReactElement {
     const INNER_ELEMENT_PROPS = {
         id,
         className: [
             "modal",
-            className
+            className,
         ].toClassName(),
         children,
     };
@@ -61,7 +67,7 @@ export default function Modal({
         >
             {
                 isForm ?
-                    <form {...INNER_ELEMENT_PROPS} method={method} action={action} /> :
+                    <form {...INNER_ELEMENT_PROPS} method={method} action={action} {...events} /> :
                     <article {...INNER_ELEMENT_PROPS} />
             }
         </section>,

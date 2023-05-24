@@ -4,7 +4,7 @@
     width: 7rem;
     height: 3.5rem;
 
-    background-color: var(--background-darker-colour);
+    background-color: var(--half-transparent);
 
     border-radius: 100rem;
 
@@ -27,7 +27,9 @@
 
         background-image: var(--main-background-image);
 
-        transition: inset 250ms, transform 250ms;
+        transition:
+            inset 350ms 0ms var(--best-bezier-curve),
+            transform 350ms 0ms var(--best-bezier-curve);
 
         img {
             width: 100%;

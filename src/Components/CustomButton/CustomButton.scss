@@ -1,5 +1,6 @@
 .custom-button {
     --padding: 1.2rem;
+    --icon-size: 2.75rem;
 
     position: relative;
 
@@ -25,7 +26,7 @@
     &.arrowed-button {
 
         &.icon-button-left img {
-            transform: translate(35%, -50%) rotate(90deg) !important;
+            transform: translate(+35%, -50%) rotate(+90deg) !important;
         }
 
         &.icon-button-right img {
@@ -41,7 +42,7 @@
 
             img {
                 left: 0;
-                transform: translate(35%, -50%);
+                transform: translate(+35%, -50%);
             }
         }
 
@@ -55,6 +56,21 @@
         }
     }
 
+    &.icon-only-button {
+        padding: 2.5rem;
+
+        width: var(--icon-size);
+        height: var(--icon-size);
+        aspect-ratio: 1;
+
+        border-radius: 100%;
+
+        img {
+            inset: 0;
+            margin: auto;
+        }
+    }
+
     a {
         text-decoration: none;
 
@@ -63,15 +79,13 @@
         place-items: center;
 
         pointer-events: none;
-
-        transition: color 500ms;
     }
 
     img {
         position: absolute;
         top: 50%;
 
-        width: 2.75rem;
+        width: var(--icon-size);
         aspect-ratio: 1;
 
         transition: filter 500ms;
@@ -80,8 +94,6 @@
 
 .button-displayer {
     display: flex;
-    place-content: center;
-    place-items: center;
     gap: 1rem;
 
     .custom-button {

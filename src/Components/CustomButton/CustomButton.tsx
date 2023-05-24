@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "../../Utilities/Extensions/ToClassName";
+import Either from "../../Utilities/Types/Either";
 import EitherOrNeither from "../../Utilities/Types/EitherOrNeither";
 import ComponentProps, { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 
@@ -12,6 +13,10 @@ import arrow_thin_icon from "../../Assets/Icons/arrow_thin.svg";
 type IconPlace = "left" | "right";
 type ButtonType = "button" | "submit" | "reset";
 type AnchorTarget = React.HTMLAttributeAnchorTarget;
+type IconDecision = Either<
+    { iconPlace: IconPlace },
+    { isIconOnly: true }
+>;
 
 type CustomButtonProps = ComponentProps & {
     text?: string;
@@ -22,8 +27,8 @@ type CustomButtonProps = ComponentProps & {
 
     events?: ComponentEventProps<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>;
 } & EitherOrNeither<
-    { isArrowed: true; iconPlace: IconPlace },
-    { iconURL: string; iconAlt?: string; iconPlace: IconPlace }
+    { isArrowed: true } & IconDecision,
+    { iconURL: string; iconAlt?: string } & IconDecision
 > & EitherOrNeither<
     EitherOrNeither<
         { isStatic: true; type?: ButtonType },
@@ -47,6 +52,7 @@ export default function CustomButton({
     isStatic,
     isArrowed,
     iconPlace,
+    isIconOnly,
     isEmphasized,
     target = "_self",
     confirmationMessage,
@@ -58,15 +64,13 @@ export default function CustomButton({
     function CreateOnClickEvent(eventType: "click" | "doubleClick"):
         (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void {
         return function (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-
             const ANCHOR: HTMLAnchorElement = e.currentTarget.querySelector("a")!;
 
             if (e.target == ANCHOR) { return; }
             if (eventType == "click" && requireDoubleClicking) { return; }
-            if (eventType == "doubleClick" && !requireDoubleClicking) { return; }
             if (confirmationMessage && !confirm(confirmationMessage)) { return; }
 
-            if (requireDoubleClicking && events?.onDoubleClick) { events?.onDoubleClick(e); }
+            if (eventType == "doubleClick" || requireDoubleClicking) { events?.onDoubleClick?.(e); }
             else { events?.onClick?.(e); }
 
             if (!isStatic) { ANCHOR.click(); }
@@ -79,6 +83,7 @@ export default function CustomButton({
             className={[
                 "custom-button",
                 isArrowed && "arrowed-button",
+                isIconOnly && "icon-only-button",
                 isEmphasized && "emphasized-button",
                 (iconURL || isArrowed) && "icon-button",
                 (iconURL || isArrowed) && `icon-button-${iconPlace}`,

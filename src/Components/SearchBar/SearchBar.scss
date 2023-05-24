@@ -1,16 +1,19 @@
 .search-bar {
+    height: 4rem;
+
     display: grid;
     grid-template-columns: 1fr auto;
     place-content: center end;
     place-items: center end;
     gap: 2rem;
 
-    height: 4rem;
-    background-color: var(--background-darker-colour);
+    background-color: var(--half-transparent);
 
     border-radius: 100rem;
 
     .custom-input-container {
+        width: 100%;
+
         place-self: stretch start;
 
         border: none;
@@ -19,13 +22,16 @@
         input {
             height: min-content;
             width: 100%;
-            overflow: hidden;
 
             padding: 1rem 1.5rem;
 
             background-color: transparent;
 
-            transition: color 500ms;
+            overflow: hidden;
+        }
+
+        label {
+            color: var(--fore-darker-colour);
         }
     }
 
@@ -51,7 +57,7 @@
         }
 
         a {
-            transition: transform 500ms, color 500ms;
+            transition: transform 500ms;
         }
 
         img {

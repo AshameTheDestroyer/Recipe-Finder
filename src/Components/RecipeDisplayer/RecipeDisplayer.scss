@@ -1,0 +1,125 @@
+@use "../Page/Page.scss";
+
+#recipe-displayer {
+    display: flex;
+    flex-direction: column;
+    place-content: space-between;
+    place-items: space-between;
+    gap: 1rem;
+
+    padding: 1rem;
+
+    background-color: var(--quarter-transparent);
+
+    overflow: hidden;
+
+    main {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        place-content: center;
+        place-items: center;
+        gap: 1rem;
+
+        .custom-button {
+
+            &#slide-left-recipe-button img {
+                transform: rotate(+90deg);
+            }
+
+            &#slide-right-recipe-button img {
+                transform: rotate(-90deg);
+            }
+        }
+
+        section {
+            scroll-behavior: smooth;
+
+            width: 100%;
+
+            display: flex;
+
+            overflow: hidden;
+        }
+    }
+
+    .button-displayer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-content: center;
+        place-items: center;
+
+        .custom-button {
+            width: 100%;
+            max-width: 15rem;
+
+            &#previous-recipe-page-button {
+                place-self: start;
+            }
+
+            &#next-recipe-page-button {
+                place-self: end;
+            }
+        }
+    }
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    #recipe-displayer {
+        min-width: 35rem;
+        width: 30vw;
+
+        padding: 0;
+
+        main {
+            display: flex;
+
+            &>button {
+                display: none;
+            }
+
+            section {
+                flex-direction: column;
+
+                overflow: visible;
+
+                .recipe-card {
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    grid-template-rows: repeat(2, 1fr);
+                    place-content: stretch;
+                    place-items: stretch;
+
+                    border-radius: 10rem;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+
+                    &>button {
+                        grid-column: 1;
+                        grid-row: 1 / -1;
+                    }
+
+                    h3 {
+                        place-self: end stretch;
+                    }
+
+                    &>p {
+                        place-self: start stretch;
+                    }
+
+                    h3,
+                    &>p {
+                        max-width: none;
+                        margin-right: 1rem;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+        .button-displayer {
+            padding: 1rem;
+            padding-top: 0;
+        }
+    }
+}

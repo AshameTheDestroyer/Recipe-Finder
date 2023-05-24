@@ -5,14 +5,16 @@ import { StoreType } from "../../store";
 import SearchBar from "../SearchBar/SearchBar";
 import CustomButton from "../CustomButton/CustomButton";
 import ToggleButton from "../ToggleButton/ToggleButton";
-import SigningForm from "../Modals/SignUpForm/SignUpForm";
+import SigningForm from "../Modals/SigningForm/SigningForm";
 import { MainStateActions, MainStateProps } from "../../MainState";
 
 import "./Header.scss";
 
-import fork_and_knife_icon from "../../Assets/Icons/fork_and_knife.svg";
+import add_recipe_icon from "../../Assets/Icons/create.svg";
+import bookmark_icon from "../../Assets/Icons/bookmark.svg";
 import dark_mode_icon from "../../Assets/Icons/dark_mode_2.svg";
 import light_mode_icon from "../../Assets/Icons/light_mode.svg";
+import fork_and_knife_icon from "../../Assets/Icons/fork_and_knife.svg";
 
 export default function Header(): React.ReactElement {
     const MainState = useSelector<StoreType, MainStateProps>(state => state.main);
@@ -51,6 +53,55 @@ export default function Header(): React.ReactElement {
                 setIsChecked={setIsDarkThemed}
             />
 
+            {
+                MainState.currentUsername ?
+                    <UserInteractionButtonDisplayer /> :
+                    <SigningButtonDisplayer
+                        setIsLoginFormOpen={setIsLoginFormOpen}
+                        setIsSignUpFormOpen={setIsSignUpFormOpen}
+                    />
+            }
+
+            <SigningForm
+                type="signUp"
+                isOpen={isSignUpFormOpen}
+
+                setIsOpen={setIsSignUpFormOpen}
+            />
+
+            <SigningForm
+                type="login"
+                isOpen={isLoginFormOpen}
+
+                setIsOpen={setIsLoginFormOpen}
+            />
+        </header>
+    );
+}
+
+function Logo(): React.ReactElement {
+    return (
+        <div id="logo">
+            <figure>
+                <img src={fork_and_knife_icon} alt="website-logo" />
+            </figure>
+
+            <p>Recipe Finder</p>
+        </div>
+    );
+}
+
+type SigningButtonsProps = {
+    setIsLoginFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsSignUpFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function SigningButtonDisplayer({
+    setIsLoginFormOpen,
+    setIsSignUpFormOpen,
+}: SigningButtonsProps): React.ReactElement {
+    return (
+        <div className="button-displayer">
             <CustomButton
                 isStatic
                 isArrowed
@@ -67,32 +118,28 @@ export default function Header(): React.ReactElement {
 
                 events={{ onClick: _ => setIsLoginFormOpen(true) }}
             />
-
-            <SigningForm
-                isOpen={isSignUpFormOpen}
-                type="signUp"
-
-                setIsOpen={setIsSignUpFormOpen}
-            />
-
-            <SigningForm
-                isOpen={isLoginFormOpen}
-                type="login"
-
-                setIsOpen={setIsLoginFormOpen}
-            />
-        </header>
+        </div>
     );
 }
 
-function Logo(): React.ReactElement {
+function UserInteractionButtonDisplayer(): React.ReactElement {
     return (
-        <div id="logo">
-            <figure>
-                <img src={fork_and_knife_icon} alt="website-logo" />
-            </figure>
+        <div className="button-displayer">
+            <CustomButton
+                isStatic
+                iconPlace="left"
+                text="Add Recipe"
+                iconURL={add_recipe_icon}
+                iconAlt="add_recipe_icon"
+            />
 
-            <p>Recipe Finder</p>
+            <CustomButton
+                isStatic
+                text="Bookmark"
+                iconPlace="left"
+                iconURL={bookmark_icon}
+                iconAlt="bookmark_icon"
+            />
         </div>
     );
 }

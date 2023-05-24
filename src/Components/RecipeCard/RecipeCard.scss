@@ -1,0 +1,67 @@
+.recipe-card {
+    --width: 8rem;
+    --default-colour: #00D647;
+    --half-lit-colour: #ffffff75;
+    $padding: 1rem;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    place-content: center start;
+    place-items: center start;
+    gap: 1rem;
+
+    padding: $padding;
+
+    border-radius: 10rem;
+    border-bottom-right-radius: 4rem;
+    border-bottom-left-radius: 4rem;
+
+    transition: background-color 500ms;
+
+    &.selected-recipe-card {
+        color: var(--fore-darker-colour);
+        background-color: var(--fore-colour);
+    }
+
+    button {
+        font-family: Pacifico;
+        font-size: x-large;
+
+        width: calc(var(--width) - $padding * 2);
+        aspect-ratio: 1;
+
+        display: flex;
+        place-content: center;
+        place-items: center;
+
+        color: var(--fore-colour);
+        background-color: var(--default-colour);
+        background-image: linear-gradient(135deg, transparent 0%, var(--half-lit-colour) 50%, transparent 0%);
+
+        border-radius: 100%;
+
+        transition: transform 500ms;
+
+        &:hover,
+        &:focus-within {
+            transform: scale(1.1);
+        }
+
+        &>* {
+            pointer-events: none;
+        }
+    }
+
+    h3,
+    &>p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        max-width: calc(var(--width) - $padding * 2);
+        max-height: 2.2rem;
+
+        overflow: hidden;
+    }
+}

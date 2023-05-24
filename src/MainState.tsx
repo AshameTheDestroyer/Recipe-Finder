@@ -4,15 +4,17 @@ import { ROOT, ROOT_DIV_ELEMENT, darkThemeStyle, lightThemeStyle } from "./main"
 import "./Utilities/Extensions/GetFocusableElements";
 
 type ThemeType = "dark" | "light";
-type ModalType = "signUp" | "login" | null;
+type ModalType = "signUp" | "login";
 
 export type MainStateProps = {
     appliedTheme: ThemeType;
     currentOpenModal: ModalType;
+    currentUsername: string;
 };
 
 const INITIAL_MAIN_STATE: MainStateProps = {
     appliedTheme: "dark",
+    currentUsername: "hashem" && null,
     currentOpenModal: null,
 };
 
