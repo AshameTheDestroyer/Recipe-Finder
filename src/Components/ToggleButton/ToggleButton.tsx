@@ -19,9 +19,9 @@ export default function ToggleButton({
     id,
     className,
 
-    isChecked,
     iconURL,
     iconAlt,
+    isChecked,
 
     events,
     setIsChecked,

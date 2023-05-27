@@ -13,10 +13,7 @@
 }
 
 html {
-    --header-height: 7rem;
-
     scroll-behavior: smooth;
-    scroll-padding-top: var(--header-height);
 }
 
 :root {
@@ -47,7 +44,7 @@ body {
     margin: 0;
 
     color: var(--fore-colour);
-    background-image: var(--background-image);
+    background-color: var(--background-darker-colour);
 
     transition: color 500ms, background-color 500ms, background-image 500ms;
 }
@@ -116,6 +113,10 @@ ul {
 
     padding-left: 2ch;
     margin: 0;
+}
+
+img {
+    transition: filter 500ms;
 }
 
 .light-themed img {

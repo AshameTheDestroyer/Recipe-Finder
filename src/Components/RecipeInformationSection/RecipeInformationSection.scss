@@ -1,3 +1,94 @@
 #recipe-information-section {
+    $padding: 2rem;
+
+    display: flex;
+    place-content: center;
+    gap: 2rem;
     flex-grow: 1;
+
+    padding: $padding;
+
+    &.nonempty-recipe-information-section {
+        min-height: calc(100vh - $padding * 2);
+
+        display: flex;
+        flex-direction: column;
+        place-content: stretch;
+        place-items: stretch;
+    }
+
+    #empty-information-message {
+        height: fit-content;
+
+        display: flex;
+        place-content: center;
+        place-items: center;
+        gap: 1rem;
+
+        padding: 2rem;
+
+        border-radius: 2rem;
+
+        background-color: var(--background-colour);
+
+        img {
+            width: 3.5rem;
+            aspect-ratio: 1;
+        }
+    }
+
+    figure {
+        --image-url: "";
+
+        position: relative;
+
+        height: 40vh;
+
+        display: flex;
+        place-content: center;
+        place-items: center;
+
+        margin-bottom: 2.2rem;
+
+        background-color: var(--background-colour);
+        background-image: var(--image-url);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+
+        border-radius: 2rem;
+
+        h2 {
+            $padding: 1rem;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%) skew(-10deg);
+
+            min-width: 30%;
+            max-width: calc(100% - $padding * 2 - 4rem);
+
+            padding: $padding;
+
+            background-image: var(--main-background-image);
+
+            overflow: hidden;
+        }
+    }
+}
+
+.light-themed #recipe-information-section {
+    background-color: var(--background-colour);
+
+    #empty-information-message {
+        background-color: var(--background-darker-colour);
+    }
+
+    figure {
+        background-color: var(--background-darker-colour);
+    }
 }

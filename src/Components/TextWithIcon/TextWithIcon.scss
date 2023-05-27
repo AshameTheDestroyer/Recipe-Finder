@@ -1,0 +1,23 @@
+.text-with-icon {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    overflow: hidden;
+
+    img {
+        width: 3rem;
+        aspect-ratio: 1;
+    }
+
+    p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: break-word;
+
+        width: 100%;
+
+        overflow: hidden;
+    }
+}

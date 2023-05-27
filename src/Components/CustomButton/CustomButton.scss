@@ -10,6 +10,8 @@
 
     padding: var(--padding);
 
+    background-color: var(--background-colour);
+
     border-width: 0.2rem;
 
     transition: transform 500ms;
@@ -87,8 +89,6 @@
 
         width: var(--icon-size);
         aspect-ratio: 1;
-
-        transition: filter 500ms;
     }
 }
 

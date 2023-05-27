@@ -1,0 +1,23 @@
+#recipe-ingredient-displayer {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    gap: 2rem;
+
+    section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-content: center;
+        place-items: center;
+        gap: 2rem;
+
+        max-width: 100%;
+
+        overflow: hidden;
+
+        .text-with-icon {
+            max-width: 100%;
+        }
+    }
+}

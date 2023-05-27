@@ -3,9 +3,6 @@
 #page>header {
     display: flex;
 
-    position: sticky;
-    top: 0;
-
     display: grid;
     grid-template-columns: 1fr auto auto;
     grid-template-rows: auto auto;
@@ -16,6 +13,10 @@
     padding: 2rem;
 
     background-color: var(--background-darker-colour);
+
+    outline: 0.2rem solid var(--background-colour);
+
+    transition: background-color 500ms;
 
     z-index: 1;
 

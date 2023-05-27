@@ -1,21 +1,35 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ROOT, ROOT_DIV_ELEMENT, darkThemeStyle, lightThemeStyle } from "./main";
 
+
+import Recipe from "./Utilities/Classes/Recipe";
 import "./Utilities/Extensions/GetFocusableElements";
+import { ROOT, ROOT_DIV_ELEMENT, darkThemeStyle, lightThemeStyle } from "./main";
 
 type ThemeType = "dark" | "light";
 type ModalType = "signUp" | "login";
 
 export type MainStateProps = {
+    username?: string;
+    openModal?: ModalType;
     appliedTheme: ThemeType;
-    currentOpenModal: ModalType;
-    currentUsername: string;
+    selectedRecipe?: Recipe;
+    recipes?: Array<Recipe>;
+    bookmarkedRecipes?: Array<Recipe>;
 };
+
+const a = Array(23).fill(null).map((_, i) =>
+    new Recipe(
+        "Bwwwwwwwwwwwwwwwwxxxxxxxxxxxxxxxwwwwwwwwwwwwwwwww" + (i + 1),
+        "dwadwwwwwwwwwwwwwwwwwwxxxxxxxxxxxxxx",
+        "../src/Assets/Icons/arrow_thick.svg",
+        i % 2 == 0,
+    )
+);
 
 const INITIAL_MAIN_STATE: MainStateProps = {
     appliedTheme: "dark",
-    currentUsername: "hashem" && null,
-    currentOpenModal: null,
+    // username: "hashem",
+    recipes: a,
 };
 
 var FrozenFocusableElements: Array<HTMLElement>;
@@ -23,6 +37,7 @@ var FrozenFocusableElements: Array<HTMLElement>;
 const MainState = createSlice({
     name: "main_state",
     initialState: INITIAL_MAIN_STATE,
+
     reducers: {
         SetTheme: (state: MainStateProps, action: PayloadAction<ThemeType>): MainStateProps => {
             if (action.payload == "dark") {
@@ -45,7 +60,7 @@ const MainState = createSlice({
         },
 
         OpenModal: (state: MainStateProps, action: PayloadAction<ModalType>): MainStateProps => {
-            if ((state.currentOpenModal == null) != (action.payload == null)) {
+            if ((state.openModal == null) != (action.payload == null)) {
                 if (action.payload != null) {
                     (FrozenFocusableElements = ROOT_DIV_ELEMENT.getFocusableElements())
                         .forEach(element => element.setAttribute("tabindex", "-1"));
@@ -56,9 +71,38 @@ const MainState = createSlice({
 
             return {
                 ...state,
-                currentOpenModal: action.payload,
+                openModal: action.payload,
             }
-        }
+        },
+
+        DeselectRecipe: (state: MainStateProps): MainStateProps => {
+            return {
+                ...state,
+                selectedRecipe: null,
+            };
+        },
+
+        SelectRecipe: (state: MainStateProps, action: PayloadAction<Recipe>): MainStateProps => {
+            return {
+                ...state,
+                selectedRecipe: action.payload,
+            };
+        },
+
+        ToggleBookmarkingRecipe: (state: MainStateProps, action: PayloadAction<Recipe>): MainStateProps => {
+            let bookmarkedRecipes: Array<Recipe> = state.bookmarkedRecipes ?? new Array<Recipe>();
+
+            if (bookmarkedRecipes.includes(action.payload)) {
+                bookmarkedRecipes = bookmarkedRecipes.filter(recipe => recipe != action.payload);
+            } else {
+                bookmarkedRecipes = [...bookmarkedRecipes, action.payload];
+            }
+
+            return {
+                ...state,
+                bookmarkedRecipes: bookmarkedRecipes,
+            };
+        },
     },
 
 });

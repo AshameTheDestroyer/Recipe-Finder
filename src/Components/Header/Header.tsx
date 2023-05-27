@@ -17,31 +17,41 @@ import light_mode_icon from "../../Assets/Icons/light_mode.svg";
 import fork_and_knife_icon from "../../Assets/Icons/fork_and_knife.svg";
 
 export default function Header(): React.ReactElement {
+    const Dispatcher = useDispatch();
     const MainState = useSelector<StoreType, MainStateProps>(state => state.main);
-    const MainStateDispatch = useDispatch();
 
     const [isDarkThemed, setIsDarkThemed] = useState(MainState.appliedTheme == "dark");
-    const [isSignUpFormOpen, setIsSignUpFormOpen] = useState(MainState.currentOpenModal == "signUp");
-    const [isLoginFormOpen, setIsLoginFormOpen] = useState(MainState.currentOpenModal == "login");
+    const [isLoginFormOpen, setIsLoginFormOpen] = useState(MainState.openModal == "login");
+    const [isSignUpFormOpen, setIsSignUpFormOpen] = useState(MainState.openModal == "signUp");
 
     useEffect(() => {
-        MainStateDispatch(
+        Dispatcher(
             MainStateActions.SetTheme(isDarkThemed ? "dark" : "light"));
     }, [isDarkThemed]);
 
     useEffect(() => {
-        MainStateDispatch(
+        Dispatcher(
             MainStateActions.OpenModal(isSignUpFormOpen ? "signUp" : null));
     }, [isSignUpFormOpen]);
 
     useEffect(() => {
-        MainStateDispatch(
+        Dispatcher(
             MainStateActions.OpenModal(isLoginFormOpen ? "login" : null));
     }, [isLoginFormOpen]);
 
     return (
         <header>
             <Logo />
+
+            {
+                MainState.username ?
+                    <UserInteractionButtonDisplayer /> :
+                    <SigningButtonDisplayer
+                        setIsLoginFormOpen={setIsLoginFormOpen}
+                        setIsSignUpFormOpen={setIsSignUpFormOpen}
+                    />
+            }
+
             <SearchBar id="recipe-search-bar" placeholder="Write a recipe here..." />
 
             <ToggleButton
@@ -52,15 +62,6 @@ export default function Header(): React.ReactElement {
 
                 setIsChecked={setIsDarkThemed}
             />
-
-            {
-                MainState.currentUsername ?
-                    <UserInteractionButtonDisplayer /> :
-                    <SigningButtonDisplayer
-                        setIsLoginFormOpen={setIsLoginFormOpen}
-                        setIsSignUpFormOpen={setIsSignUpFormOpen}
-                    />
-            }
 
             <SigningForm
                 type="signUp"
@@ -135,7 +136,7 @@ function UserInteractionButtonDisplayer(): React.ReactElement {
 
             <CustomButton
                 isStatic
-                text="Bookmark"
+                text="Bookmarks"
                 iconPlace="left"
                 iconURL={bookmark_icon}
                 iconAlt="bookmark_icon"

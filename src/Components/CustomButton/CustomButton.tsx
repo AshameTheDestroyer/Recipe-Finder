@@ -21,14 +21,15 @@ type IconDecision = Either<
 type CustomButtonProps = ComponentProps & {
     text?: string;
     title?: string;
-    isEmphasized?: true;
+    isDisabled?: boolean;
+    isEmphasized?: boolean;
     confirmationMessage?: string;
     requireDoubleClicking?: true;
 
     events?: ComponentEventProps<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>;
 } & EitherOrNeither<
     { isArrowed: true } & IconDecision,
-    { iconURL: string; iconAlt?: string } & IconDecision
+    { iconURL: string; iconAlt: string } & IconDecision
 > & EitherOrNeither<
     EitherOrNeither<
         { isStatic: true; type?: ButtonType },
@@ -52,6 +53,7 @@ export default function CustomButton({
     isStatic,
     isArrowed,
     iconPlace,
+    isDisabled,
     isIconOnly,
     isEmphasized,
     target = "_self",
@@ -91,6 +93,7 @@ export default function CustomButton({
             ].toClassName()}
 
             title={title}
+            disabled={isDisabled}
             type={type ?? "button"}
 
             {...events}

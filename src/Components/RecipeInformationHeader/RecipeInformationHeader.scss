@@ -1,0 +1,54 @@
+@use "../Page/Page.scss";
+
+#recipe-information-section>header {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2rem;
+
+    &>section {
+        min-width: 100%;
+
+        display: flex;
+        flex-wrap: wrap;
+        place-content: center space-evenly;
+        place-items: center space-evenly;
+        gap: 2rem;
+
+        .text-with-icon:last-child {
+            flex-shrink: 1;
+        }
+
+        &.button-displayer {
+            $padding: 2rem;
+
+            min-width: calc(100% - $padding * 2);
+
+            padding: $padding;
+
+            background-color: var(--background-colour);
+
+            border-radius: 2rem;
+
+            .custom-button {
+                background-color: var(--background-darker-colour);
+            }
+        }
+    }
+}
+
+.light-themed #recipe-information-section>header .button-displayer {
+    background-color: var(--background-darker-colour) !important;
+
+    .custom-button {
+        background-color: var(--background-colour);
+    }
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    #recipe-information-section>header {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: 1fr;
+    }
+}

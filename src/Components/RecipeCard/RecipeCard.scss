@@ -1,3 +1,5 @@
+@use "../Page/Page.scss";
+
 .recipe-card {
     --width: 8rem;
     --default-colour: #00D647;
@@ -5,6 +7,8 @@
     $padding: 1rem;
 
     text-align: center;
+
+    position: relative;
 
     display: flex;
     flex-direction: column;
@@ -21,13 +25,14 @@
     transition: background-color 500ms;
 
     &.selected-recipe-card {
-        color: var(--fore-darker-colour);
-        background-color: var(--fore-colour);
+        background-color: var(--background-darker-colour);
     }
 
     button {
         font-family: Pacifico;
         font-size: x-large;
+
+        position: relative;
 
         width: calc(var(--width) - $padding * 2);
         aspect-ratio: 1;
@@ -40,6 +45,7 @@
         background-color: var(--default-colour);
         background-image: linear-gradient(135deg, transparent 0%, var(--half-lit-colour) 50%, transparent 0%);
 
+        border: 0.3rem solid var(--background-darker-colour);
         border-radius: 100%;
 
         transition: transform 500ms;
@@ -49,9 +55,49 @@
             transform: scale(1.1);
         }
 
-        &>* {
+        .user-icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(25%, -25%);
+
+            width: 2rem;
+
+            padding: 0.5rem;
+
+            background-color: var(--fore-darker-colour);
+
+            border: inherit;
+
+            border-radius: 100%;
+        }
+
+        img,
+        a {
             pointer-events: none;
         }
+
+        .recipe-image {
+            width: 100%;
+            aspect-ratio: 1;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    button p,
+    h3 {
+        text-shadow:
+            0.1rem 0.1rem 0.1rem black,
+            -0.1rem 0.1rem 0.1rem black,
+            0.1rem -0.1rem 0.1rem black,
+            -0.1rem -0.1rem 0.1rem black;
+    }
+
+    h3 {
+        color: var(--default-colour);
     }
 
     h3,
@@ -63,5 +109,101 @@
         max-height: 2.2rem;
 
         overflow: hidden;
+    }
+}
+
+.light-themed .recipe-card {
+
+    &.selected-recipe-card {
+        background-color: var(--background-colour);
+    }
+
+    button {
+        border: 0.3rem solid var(--fore-colour);
+
+        a {
+            color: var(--background-colour);
+        }
+
+        img {
+            filter: none;
+
+            &.user-icon {
+                background-color: var(--background-darker-colour);
+            }
+        }
+    }
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    .recipe-card {
+        transition: none;
+
+        &.selected-recipe-card {
+
+            &::before,
+            &::after {
+                background-color: var(--background-colour);
+            }
+
+            &>p::before {
+                background-color: var(--background-darker-colour);
+            }
+        }
+
+        &::before,
+        &::after {
+            content: "";
+
+            position: absolute;
+            right: 0;
+
+            height: 50%;
+            aspect-ratio: 1;
+
+        }
+
+        &::before {
+            top: -50%;
+
+            border-bottom-right-radius: 10rem;
+        }
+
+        &::after {
+            bottom: -50%;
+
+            border-top-right-radius: 10rem;
+        }
+
+        &>p::before {
+            content: "";
+
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+
+            height: 200%;
+            width: calc(var(--width) / 2);
+
+            border-radius: 10rem;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+
+            z-index: -1;
+        }
+    }
+
+    .light-themed .recipe-card.selected-recipe-card {
+
+        &::before,
+        &::after {
+            background-color: var(--background-darker-colour);
+        }
+
+        &>p::before {
+            background-color: var(--background-colour);
+        }
     }
 }
