@@ -6,3 +6,9 @@ A website about food and recipes, to extend my knowledge and understandability a
 I'll admit it, I'm so dumb and busy I forgot to name this one as the First Commit as always, but anyways…
 The header is mostly done, with a nice search bar, and a theme toggle button, also with sign up and in buttons that lead you to Modals containing forms that you can sign up or in!
 Managing modals was fun to do, and learning about them and Portals in general was a great choice, I'm looking at you Redux…
+
+### v2. Recipe Displayer
+I've made it so that the recipes get displayed in two ways, one horizontally for mobiles, and vertically for desktops and tablets, and it looks kinda cool.
+
+### v3. Recipe Information Section
+Now the recipes that you select can be displayed in a way to show furthur more information, and some fixes.
