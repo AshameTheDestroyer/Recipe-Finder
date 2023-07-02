@@ -12,6 +12,7 @@ import search_icon from "../../Assets/Icons/search.svg";
 type SearchBarProps = Omit<ComponentProps, "children"> & {
     placeholder?: string;
 
+    onSearch?: (text: string) => void;
     inputEvents?: ComponentEventProps<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>;
     buttonEvents?: ComponentEventProps<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>;
 };
@@ -22,6 +23,7 @@ export default function SearchBar({
 
     placeholder = "",
 
+    onSearch,
     inputEvents,
     buttonEvents,
 }: SearchBarProps): React.ReactElement {
@@ -46,17 +48,27 @@ export default function SearchBar({
     function OnInputBlur(e: React.FocusEvent<HTMLInputElement, Element>): void {
         inputEvents?.onBlur?.(e);
 
-        setInputText(value => value.trimAll());
+        setInputText(previousValue => previousValue.trimAll());
     }
 
     function OnButtonClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+        setInputText(previousValue => previousValue.trimAll());
+
         buttonEvents?.onClick?.(e);
+
+        onSearch?.(inputText);
 
         setInputText("");
     }
 
     return (
-        <div id={id} className={["search-bar", className].toClassName()}>
+        <div
+            id={id}
+            className={[
+                "search-bar",
+                className
+            ].toClassName()}
+        >
             <CustomInput
                 type="text"
                 value={inputText}

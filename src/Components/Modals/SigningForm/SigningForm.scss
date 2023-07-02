@@ -5,6 +5,8 @@
 
     width: min-content;
 
+    padding: 0;
+
     animation-timing-function: cubic-bezier(1, 1, 1, 1) !important;
     animation-duration: 250ms !important;
 
@@ -14,7 +16,7 @@
 
     &>main {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: 1fr;
         grid-template-rows: auto 1fr auto;
         gap: 3rem;
 
@@ -27,6 +29,10 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        #error-indicator-paragraph {
+            color: var(--invalid-colour);
         }
 
         &>section {
@@ -53,6 +59,12 @@
 
         #terms-and-conditions-confirmation {
             accent-color: var(--main-colour);
+
+            a,
+            input,
+            label {
+                cursor: pointer;
+            }
 
             a {
                 text-decoration-color: var(--main-colour);
@@ -93,7 +105,7 @@
             flex-direction: column;
             place-content: center;
             place-items: center;
-            gap: 5rem;
+            gap: $padding;
 
             flex-shrink: 1;
 

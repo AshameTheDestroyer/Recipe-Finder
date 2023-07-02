@@ -1,7 +1,7 @@
 @use "../Page/Page.scss";
 
 #page>header {
-    display: flex;
+    position: relative;
 
     display: grid;
     grid-template-columns: 1fr auto auto;
@@ -67,11 +67,18 @@
     }
 
     .button-displayer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         grid-column: 2 / -1;
         grid-row: 1;
 
         .custom-button {
+            width: 100%;
             height: min-content;
+
+            &:nth-child(3) {
+                grid-column: 1 / -1;
+            }
         }
     }
 
@@ -84,5 +91,21 @@
     #recipe-search-bar {
         grid-column: span 2;
         grid-row: 2;
+    }
+}
+
+@media (min-width: Page.$first-screen-width) {
+
+    #page>header {
+
+        .button-displayer {
+            display: flex;
+            place-content: center;
+            place-items: center;
+
+            .custom-button {
+                width: max-content;
+            }
+        }
     }
 }

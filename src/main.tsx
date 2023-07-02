@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import store from "./store";
 import Page from "./Components/Page/Page";
+import NotFoundPage from "./Components/NotFoundPage/NotFoundPage";
 
 import "./index.scss";
 
@@ -39,6 +40,7 @@ function Index(): React.ReactElement {
             <Provider store={store}>
                 <Routes>
                     <Route path="/" element={<Page />} />
+                    <Route path="/NotFound" element={<NotFoundPage />} />
                 </Routes>
             </Provider>
         </BrowserRouter>

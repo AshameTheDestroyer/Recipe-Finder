@@ -29,13 +29,15 @@
     }
 
     button {
+        $size: calc(var(--width) - $padding * 2);
+
         font-family: Pacifico;
         font-size: x-large;
 
         position: relative;
 
-        width: calc(var(--width) - $padding * 2);
-        aspect-ratio: 1;
+        width: $size;
+        height: $size;
 
         display: flex;
         place-content: center;
@@ -78,8 +80,11 @@
         }
 
         .recipe-image {
-            width: 100%;
+            width: $size;
             aspect-ratio: 1;
+
+            border: inherit;
+            border-radius: inherit;
         }
 
         a {

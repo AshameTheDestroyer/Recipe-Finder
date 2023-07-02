@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { StoreType } from "../../store";
@@ -19,6 +19,10 @@ export default function RecipeDisplayer(): React.ReactElement {
         PAGE_COUNT: number = Math.ceil(MainState.recipes?.length / SHOWN_RECIPE_COUNT);
 
     const [currentPageIndex, setCurrentPageIndex] = useState(0);
+
+    useEffect(() => {
+        setCurrentPageIndex(0);
+    }, [MainState.recipes]);
 
     return (
         <aside id="recipe-displayer"> {
@@ -63,8 +67,9 @@ function RecipeSlider({
                         currentPageIndex * shownRecipeCount + shownRecipeCount)
                     .map((recipe, i) =>
                         <RecipeCard
-                            key={recipe.name + recipe.chef + i}
+                            key={recipe.id}
 
+                            isSelectable
                             recipe={recipe}
                             width={`${RECIPE_WIDTH_IN_REM}rem`}
                             defaultColour={COLOURS[i % COLOURS.length]}

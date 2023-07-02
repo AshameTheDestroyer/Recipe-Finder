@@ -10,6 +10,7 @@ import "./Modal.scss";
 type FormMethods = "GET" | "POST";
 
 export type ModalProps = ComponentProps & {
+    isPopUp?: true;
     isOpen: boolean;
 
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,8 +18,8 @@ export type ModalProps = ComponentProps & {
     { isForm: false },
     {
         isForm: true;
-        method: FormMethods;
         action: string;
+        method: FormMethods;
         events?: ComponentEventProps<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>;
     }
 >;
@@ -34,14 +35,16 @@ export default function Modal({
     isForm,
     method,
     action,
+    isPopUp,
 
-    setIsOpen,
     events,
+    setIsOpen,
 }: ModalProps): React.ReactElement {
     const INNER_ELEMENT_PROPS = {
         id,
         className: [
             "modal",
+            isPopUp && "pop-up-modal",
             className,
         ].toClassName(),
         children,
@@ -59,18 +62,26 @@ export default function Modal({
         setIsOpen(false);
     }
 
-    return isOpen ? createPortal(
-        <section
-            className="modal-background"
-            onClick={OnOutsideClick}
-            onKeyDown={OnOutsideKeydown}
-        >
+    const OUTPUT: React.ReactElement = (
+        <>
+            <section
+                className={[
+                    "modal-background",
+                    isPopUp && "pop-up-modal-background",
+                ].toClassName()}
+
+                onClick={OnOutsideClick}
+                onKeyDown={OnOutsideKeydown}
+            />
             {
                 isForm ?
                     <form {...INNER_ELEMENT_PROPS} method={method} action={action} {...events} /> :
                     <article {...INNER_ELEMENT_PROPS} />
             }
-        </section>,
-        MODAL_CONTAINER ?? document.body
-    ) : null;
+        </>
+    );
+
+    return !isOpen ? null :
+        isPopUp ? OUTPUT :
+            createPortal(OUTPUT, MODAL_CONTAINER ?? document.body);
 }

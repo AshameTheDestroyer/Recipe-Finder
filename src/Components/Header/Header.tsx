@@ -6,7 +6,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import CustomButton from "../CustomButton/CustomButton";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import SigningForm from "../Modals/SigningForm/SigningForm";
-import { MainStateActions, MainStateProps } from "../../MainState";
+import AddRecipeForm from "../Modals/AddRecipeForm/AddRecipeForm";
+import { MainActions, MainStateProps, SearchRecipes } from "../../MainState";
+import BookmarkedRecipeDisplayer from "../Modals/BookmarkedRecipeDisplayer/BookmarkedRecipeDisplayer";
 
 import "./Header.scss";
 
@@ -21,38 +23,76 @@ export default function Header(): React.ReactElement {
     const MainState = useSelector<StoreType, MainStateProps>(state => state.main);
 
     const [isDarkThemed, setIsDarkThemed] = useState(MainState.appliedTheme == "dark");
-    const [isLoginFormOpen, setIsLoginFormOpen] = useState(MainState.openModal == "login");
-    const [isSignUpFormOpen, setIsSignUpFormOpen] = useState(MainState.openModal == "signUp");
+    const [isLoginFormOpen, setIsLoginFormOpen] = useState(MainState.openModal == "loginForm");
+    const [isSignUpFormOpen, setIsSignUpFormOpen] = useState(MainState.openModal == "signUpForm");
+    const [isAddRecipeFormOpen, setIsAddRecipeFormOpen] = useState(MainState.openModal == "addRecipeForm");
+    const [isBookmarkedRecipeDisplayerOpen, setIsBookmarkedRecipeDisplayerOpen] = useState(MainState.openModal == "bookmarkedRecipeDisplayerPopUp");
 
     useEffect(() => {
         Dispatcher(
-            MainStateActions.SetTheme(isDarkThemed ? "dark" : "light"));
+            MainActions.SetTheme(isDarkThemed ? "dark" : "light"));
     }, [isDarkThemed]);
 
     useEffect(() => {
         Dispatcher(
-            MainStateActions.OpenModal(isSignUpFormOpen ? "signUp" : null));
+            MainActions.OpenModal(isLoginFormOpen ? "loginForm" : null));
+    }, [isLoginFormOpen]);
+
+    useEffect(() => {
+        Dispatcher(
+            MainActions.OpenModal(isSignUpFormOpen ? "signUpForm" : null));
     }, [isSignUpFormOpen]);
 
     useEffect(() => {
         Dispatcher(
-            MainStateActions.OpenModal(isLoginFormOpen ? "login" : null));
-    }, [isLoginFormOpen]);
+            MainActions.OpenModal(isAddRecipeFormOpen ? "addRecipeForm" : null));
+    }, [isAddRecipeFormOpen]);
+
+    useEffect(() => {
+        Dispatcher(
+            MainActions.OpenModal(isBookmarkedRecipeDisplayerOpen ? "bookmarkedRecipeDisplayerPopUp" : null));
+    }, [isBookmarkedRecipeDisplayerOpen]);
+
+    function OnSearchBarSearch(text: string): void {
+        Dispatcher(MainActions.DeselectRecipe());
+        Dispatcher(MainActions.StartLoadingRecipes());
+
+        // @ts-ignore
+        Dispatcher(SearchRecipes(text));
+    }
+
+    function onSearchBarKeydown(e: React.KeyboardEvent<HTMLInputElement>): void {
+        if (e.key != "ArrowUp") { return; }
+
+        e.preventDefault();
+        e.currentTarget.value = MainState.searchedText ?? "";
+    }
 
     return (
         <header>
             <Logo />
 
             {
-                MainState.username ?
-                    <UserInteractionButtonDisplayer /> :
+                MainState.loggedUser ?
+                    <UserInteractionButtonDisplayer
+                        setIsAddRecipeFormOpen={setIsAddRecipeFormOpen}
+                        setIsBookmarkedRecipeDisplayerOpen={setIsBookmarkedRecipeDisplayerOpen}
+                    /> :
                     <SigningButtonDisplayer
                         setIsLoginFormOpen={setIsLoginFormOpen}
+
                         setIsSignUpFormOpen={setIsSignUpFormOpen}
                     />
             }
 
-            <SearchBar id="recipe-search-bar" placeholder="Write a recipe here..." />
+            <SearchBar
+                id="recipe-search-bar"
+
+                placeholder="Write a recipe here..."
+
+                onSearch={OnSearchBarSearch}
+                inputEvents={{ onKeyDown: onSearchBarKeydown }}
+            />
 
             <ToggleButton
                 id="theme-toggle-button"
@@ -75,6 +115,18 @@ export default function Header(): React.ReactElement {
                 isOpen={isLoginFormOpen}
 
                 setIsOpen={setIsLoginFormOpen}
+            />
+
+            <AddRecipeForm
+                isOpen={isAddRecipeFormOpen}
+
+                setIsOpen={setIsAddRecipeFormOpen}
+            />
+
+            <BookmarkedRecipeDisplayer
+                isOpen={isBookmarkedRecipeDisplayerOpen}
+
+                setIsOpen={setIsBookmarkedRecipeDisplayerOpen}
             />
         </header>
     );
@@ -105,6 +157,13 @@ function SigningButtonDisplayer({
         <div className="button-displayer">
             <CustomButton
                 isStatic
+                text="Login"
+
+                events={{ onClick: _ => setIsLoginFormOpen(true) }}
+            />
+
+            <CustomButton
+                isStatic
                 isArrowed
                 isEmphasized
                 text="Sign up"
@@ -113,33 +172,50 @@ function SigningButtonDisplayer({
                 events={{ onClick: _ => setIsSignUpFormOpen(true) }}
             />
 
-            <CustomButton
-                isStatic
-                text="Login"
-
-                events={{ onClick: _ => setIsLoginFormOpen(true) }}
-            />
         </div>
     );
 }
 
-function UserInteractionButtonDisplayer(): React.ReactElement {
+type UserInteractionButtonDisplayerProps = {
+    setIsAddRecipeFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsBookmarkedRecipeDisplayerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function UserInteractionButtonDisplayer({
+    setIsAddRecipeFormOpen,
+    setIsBookmarkedRecipeDisplayerOpen,
+}: UserInteractionButtonDisplayerProps): React.ReactElement {
+    const Dispatcher = useDispatch();
+
     return (
         <div className="button-displayer">
-            <CustomButton
-                isStatic
-                iconPlace="left"
-                text="Add Recipe"
-                iconURL={add_recipe_icon}
-                iconAlt="add_recipe_icon"
-            />
-
             <CustomButton
                 isStatic
                 text="Bookmarks"
                 iconPlace="left"
                 iconURL={bookmark_icon}
                 iconAlt="bookmark_icon"
+
+                events={{ onClick: _ => setIsBookmarkedRecipeDisplayerOpen(true) }}
+            />
+
+            <CustomButton
+                isStatic
+                text="Add"
+                iconPlace="left"
+                iconURL={add_recipe_icon}
+                iconAlt="add_recipe_icon"
+
+                events={{ onClick: _ => setIsAddRecipeFormOpen(true) }}
+            />
+
+            <CustomButton
+                href="/"
+                isArrowed
+                text="Log out"
+                iconPlace="right"
+
+                events={{ onClick: _ => Dispatcher(MainActions.LogUserOut()) }}
             />
         </div>
     );

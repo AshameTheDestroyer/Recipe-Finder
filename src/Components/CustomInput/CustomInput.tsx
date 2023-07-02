@@ -26,7 +26,7 @@ type CustomInputProps = Omit<ComponentProps, "children"> & {
         { type: Exclude<CustomInputType, "number" | CustomInputPatternType> },
         { type: "number"; minimumNumber?: number; maximumNumber?: number }
     >,
-    { type?: CustomInputPatternType; pattern?: string }
+    { type: CustomInputPatternType; pattern?: string }
 >;
 
 export default function CustomInput({
@@ -63,6 +63,7 @@ export default function CustomInput({
                     className,
                 ].toClassName()}
 
+                type={type}
                 value={value}
                 title={title}
                 placeholder=" "
@@ -70,11 +71,16 @@ export default function CustomInput({
                 name={name ?? id}
                 min={minimumNumber}
                 max={maximumNumber}
-                type={type ?? "text"}
                 readOnly={isReadOnly}
                 required={isRequired}
                 minLength={minimumLength}
                 maxLength={maximumLength}
+
+                onBlur={e => {
+                    if (type == "number" && e.currentTarget.value.length == 0) { e.currentTarget.value = 0..toString(); }
+
+                    events.onBlur?.(e);
+                }}
 
                 {...events}
             />

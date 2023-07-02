@@ -1,14 +1,21 @@
-export default class Recipe {
+export type Ingredient = {
+    unit?: string;
+    quantity?: number;
+    description: string;
+};
 
+export type RecipeExtraInformation = {
+    cookingTime: number;
+    ingredients: Array<Ingredient>;
+};
+
+export default class Recipe {
     public constructor(
         public name: string,
-        private chef_: string,
+        public publisher: string,
+        public id: string,
         public imageURL?: string,
         public isUserMade?: boolean,
+        public extraInformation?: RecipeExtraInformation,
     ) { }
-
-    public get chef(): string {
-        return this.isUserMade ? "You" : this.chef_;
-    }
-
 }

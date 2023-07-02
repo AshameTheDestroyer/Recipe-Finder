@@ -1,16 +1,16 @@
 .toggle-button {
     $padding: 0.3rem;
 
+    position: relative;
+
     width: 7rem;
     height: 3.5rem;
+
+    padding: $padding;
 
     background-color: var(--background-colour);
 
     border-radius: 100rem;
-
-    position: relative;
-
-    padding: $padding;
 
     figure {
         content: "";
@@ -27,9 +27,7 @@
 
         background-image: var(--main-background-image);
 
-        transition:
-            inset 350ms 0ms var(--best-bezier-curve),
-            transform 350ms 0ms var(--best-bezier-curve);
+        transition: inset 350ms, transform 350ms;
 
         img {
             width: 100%;

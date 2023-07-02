@@ -35,6 +35,26 @@
             width: 3.5rem;
             aspect-ratio: 1;
         }
+
+        &.loading-information-message img {
+            animation-name: information-message-image-rotation;
+            animation-duration: 1000ms;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+            animation-direction: normal;
+            animation-timing-function: cubic-bezier(1, 1, 1, 1);
+
+            @keyframes information-message-image-rotation {
+
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        }
     }
 
     figure {
@@ -54,13 +74,14 @@
         background-image: var(--image-url);
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain;
+        background-size: cover;
 
         border-radius: 2rem;
 
         h2 {
             $padding: 1rem;
 
+            text-align: center;
             text-overflow: ellipsis;
             white-space: nowrap;
 

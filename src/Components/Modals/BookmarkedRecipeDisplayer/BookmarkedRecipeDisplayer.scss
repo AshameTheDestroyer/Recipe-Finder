@@ -1,0 +1,57 @@
+#bookmarked-recipe-displayer {
+    $padding: 1rem;
+    $right: 2rem;
+
+    position: absolute;
+    top: 50%;
+    right: $right;
+    transform-origin: 100% 0;
+
+    max-width: calc(100vw - 2 * $padding - 2 * $right);
+    max-height: 80vh;
+
+    padding: $padding;
+
+    overflow: auto;
+
+    &>main {
+        width: fit-content;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .text-with-icon>p {
+            all: unset;
+        }
+
+        .recipe-card {
+            width: 19rem;
+
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: repeat(2, 1fr);
+            place-content: center start;
+            place-items: center start;
+            gap: 0 2rem;
+
+            border-radius: 2rem;
+
+            &::before,
+            &::after,
+            &>p::before {
+                content: none;
+            }
+
+            &>button {
+                grid-column: 1;
+                grid-row: 1 / -1;
+            }
+
+            &>h3,
+            &>p {
+                max-width: 100%;
+            }
+        }
+    }
+}

@@ -3,29 +3,36 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { StoreType } from "../../store";
 import Recipe from "../../Utilities/Classes/Recipe";
-import { MainStateActions, MainStateProps } from "../../MainState";
+import { MainActions, MainStateProps, SetRecipeExtraInformation } from "../../MainState";
 
 import "./RecipeCard.scss";
 
 import user_icon from "../../Assets/Icons/user.svg";
+import { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 
 type RecipeCardProps = {
     recipe: Recipe;
     width?: string;
+    isSelectable?: true;
     defaultColour?: string;
+
+    buttonEvents?: ComponentEventProps<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>;
 };
 
 export default function RecipeCard({
     width,
     recipe,
+    isSelectable,
     defaultColour,
+
+    buttonEvents,
 }: RecipeCardProps): React.ReactElement {
     const Dispatcher = useDispatch();
     const MainState = useSelector<StoreType, MainStateProps>(state => state.main);
     const RECIPE_CARD_ELEMENT = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!MainState.selectedRecipe || recipe != MainState.selectedRecipe) { return; }
+        if (!isSelectable || recipe != MainState.selectedRecipe) { return; }
 
         RECIPE_CARD_ELEMENT.current.classList.add("selected-recipe-card");
     }, []);
@@ -33,18 +40,29 @@ export default function RecipeCard({
     function OnButtonClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
         if (e.currentTarget != e.target) { return; }
 
+        buttonEvents?.onClick?.(e);
+
         let selectedRecipeCard: HTMLElement = document.querySelector(".recipe-card.selected-recipe-card");
 
         if ((e.target as HTMLElement).parentElement == selectedRecipeCard) {
             selectedRecipeCard.classList.remove("selected-recipe-card");
-            Dispatcher(MainStateActions.DeselectRecipe());
+            Dispatcher(MainActions.DeselectRecipe());
             return;
         }
 
-        (e.target as HTMLElement).parentElement.classList.toggle("selected-recipe-card");
-        selectedRecipeCard?.classList.toggle("selected-recipe-card");
+        if (isSelectable) {
+            (e.target as HTMLElement).parentElement.classList.toggle("selected-recipe-card");
+            selectedRecipeCard?.classList.toggle("selected-recipe-card");
+        }
 
-        Dispatcher(MainStateActions.SelectRecipe(recipe));
+        Dispatcher(MainActions.SelectRecipe(recipe));
+
+        if (!recipe.isUserMade) {
+            Dispatcher(MainActions.StartLoadingRecipes());
+
+            // @ts-ignore
+            Dispatcher(SetRecipeExtraInformation(recipe));
+        }
 
         (e.currentTarget as HTMLElement).querySelector("a")!.click();
     }
@@ -61,11 +79,17 @@ export default function RecipeCard({
             ref={RECIPE_CARD_ELEMENT}
         >
 
-            <button onClick={OnButtonClick} type="button">
+            <button
+                type="button"
+
+                {...buttonEvents}
+                onClick={OnButtonClick}
+            >
                 {
                     recipe.isUserMade &&
                     <img
                         className="user-icon"
+
                         src={user_icon}
                         alt="user_icon"
                         title="This recipe is made by you."
@@ -76,6 +100,7 @@ export default function RecipeCard({
                     recipe.imageURL &&
                     <img
                         className="recipe-image"
+
                         src={recipe.imageURL}
                         alt={`${recipe.name}_recipe_image`}
                     />
@@ -85,7 +110,7 @@ export default function RecipeCard({
             </button>
 
             <h3>{recipe.name}</h3>
-            <p>{recipe.chef}</p>
+            <p>{MainState.loggedUser?.username == recipe.publisher ? "You" : recipe.publisher}</p>
         </div>
     );
 }
