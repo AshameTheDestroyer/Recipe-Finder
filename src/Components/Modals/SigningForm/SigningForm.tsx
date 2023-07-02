@@ -78,9 +78,9 @@ export default function SigningForm({
             className="signing-form"
 
             isForm
+            action="/"
             method="POST"
             isOpen={isOpen}
-            action="../../../index.html"
 
             setIsOpen={previousValue => (setIsOpen(previousValue), setErrorMessage(null))}
             events={{
