@@ -189,7 +189,7 @@ function UserInteractionButtonDisplayer({
     return (
         <div className="button-displayer">
             <CustomButton
-                href="/"
+                href="/Recipe-Finder/"
                 isArrowed
                 text="Log out"
                 iconPlace="right"

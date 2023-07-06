@@ -18,9 +18,9 @@ export const darkThemeStyle: React.CSSProperties = {
 
 export const lightThemeStyle: React.CSSProperties = {
     "--fore-colour": "#000000",
-    "--background-colour": "#CCCCCC",
+    "--background-colour": "#EEEEEE",
     "--fore-darker-colour": "#222222",
-    "--background-darker-colour": "#AAAAAA",
+    "--background-darker-colour": "#CCCCCC",
 } as React.CSSProperties;
 
 export const
