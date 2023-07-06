@@ -12,3 +12,6 @@ I've made it so that the recipes get displayed in two ways, one horizontally for
 
 ### v3. Recipe Information Section
 Now the recipes that you select can be displayed in a way to show furthur more information, and some fixes.
+
+### v4. The Missing Pieces
+I've been so crowded with universities and self-studying, that I barely had the time to work on this project anymore, but indeed after mroe than a month, I finally managed to develop most of the features I wanted in the first place, and currently, the project is kinda well-done, and I'm proud of it, and wish to continue on other projects, because this one took more than it should.
