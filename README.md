@@ -15,3 +15,4 @@ Now the recipes that you select can be displayed in a way to show furthur more i
 
 ### v4. The Missing Pieces
 I've been so crowded with universities and self-studying, that I barely had the time to work on this project anymore, but indeed after mroe than a month, I finally managed to develop most of the features I wanted in the first place, and currently, the project is kinda well-done, and I'm proud of it, and wish to continue on other projects, because this one took more than it should.
+BTW I remembered, this pulling request's name is actually inspired by the part 2 of Horimiya :P.
