@@ -7,7 +7,7 @@
 
     section {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
         place-content: center;
         place-items: center;
         gap: 2rem;

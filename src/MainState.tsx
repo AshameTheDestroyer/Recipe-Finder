@@ -26,6 +26,7 @@ export type MainStateProps = {
     appliedTheme: ThemeType;
     selectedRecipe?: Recipe;
     recipes?: Array<Recipe>;
+    signedUsers?: Array<User>;
     isLoadingRecipes?: boolean;
     isThereNetworkIssue?: boolean;
     userAddedRecipes?: Array<Recipe>;
@@ -41,6 +42,7 @@ const
     INITIAL_MAIN_STATE: MainStateProps = {
         appliedTheme: "dark",
         loggedUser: LOGGED_USER,
+        signedUsers: GetItemFromLocalStorage("signed-users"),
         userAddedRecipes: GetItemFromLocalStorage("user-added-recipes"),
         bookmarkedRecipes: GetItemFromLocalStorage("bookmarked-recipes"),
     };
@@ -149,7 +151,7 @@ const MainState = createSlice({
             let recipe = new Recipe(
                 action.payload.name,
                 action.payload.publisher,
-                (state.recipes?.length + state.userAddedRecipes?.length).toString(),
+                (state.userAddedRecipes?.length ?? 0).toString(),
                 action.payload.imageURL,
                 true,
                 action.payload.extraInformation,

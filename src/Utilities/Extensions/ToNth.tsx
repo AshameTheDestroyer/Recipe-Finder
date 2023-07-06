@@ -11,7 +11,7 @@ Number.prototype.toNth = function (): string {
     if (value <= 0) { return value.toString(); }
 
     return value + ((): string => {
-        if (value <= 13) { return "th"; }
+        if (11 <= value && value <= 13) { return "th"; }
 
         switch (value.toString().at(-1)) {
             case "1": return "st";

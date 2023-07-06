@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
+import { StoreType } from "../../../store";
 import Modal, { ModalProps } from "../../Modal/Modal";
 import CustomInput from "../../CustomInput/CustomInput";
 import CustomButton from "../../CustomButton/CustomButton";
-import { MainActions, User } from "../../../MainState";
+import { MainActions, MainStateProps, User } from "../../../MainState";
 import REGEX_PATTERNS from "../../../Utilities/Constants/RegexPatterns";
 
 import "./SigningForm.scss";
@@ -25,8 +26,7 @@ export default function SigningForm({
     setIsOpen,
 }: SigningFormProps): React.ReactElement {
     const Dispatcher = useDispatch();
-
-    const userData: Array<User> = JSON.parse(localStorage.getItem("signed-users"));
+    const MainState = useSelector<StoreType, MainStateProps>(state => state.main);
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -35,42 +35,46 @@ export default function SigningForm({
     const [errorMessage, setErrorMessage] = useState(null);
 
     function OnSubmit(e: React.FormEvent<HTMLFormElement>): void {
-        if (type == "login") {
-            let loggedUser: User = userData?.find(
-                user => user.username == username || user.email == username);
+        e.preventDefault();
 
-            if (!loggedUser || loggedUser?.password != password) {
-                e.preventDefault();
+        switch (type) {
+            case "login": HandleLoggingIn(); break;
+            case "signUp": HandleSigningUp(); break;
+        }
+    }
 
-                setErrorMessage(!loggedUser ?
-                    "Username or email doesn't exist." :
-                    "Invalid password, try again...");
-                return;
-            }
+    function HandleLoggingIn(): void {
+        let loggedUser: User = MainState.signedUsers?.find(
+            user => user.username == username || user.email == username);
 
-            Dispatcher(MainActions.LogUserIn(loggedUser));
-            setErrorMessage(null);
+        if (!loggedUser || loggedUser?.password != password) {
+            setErrorMessage(!loggedUser ?
+                "Username or email doesn't exist." :
+                "Invalid password, try again...");
             return;
         }
 
-        let loggedUser: User = userData?.find(
+        Dispatcher(MainActions.LogUserIn(loggedUser));
+        setErrorMessage(null);
+
+        location.reload();
+    }
+
+    function HandleSigningUp(): void {
+        let loggedUser: User = MainState.signedUsers?.find(
             user => user.username == username || user.email == email);
 
         if (loggedUser) {
-            e.preventDefault();
-
             setErrorMessage((loggedUser.username == username ? "Username" : "Email")
                 + " already exists, pick another one.");
 
             return;
         }
 
-        Dispatcher(MainActions.SignUserIn({
-            email,
-            username,
-            password,
-        }));
+        Dispatcher(MainActions.SignUserIn({ email, username, password }));
         setErrorMessage(null);
+
+        location.reload();
     }
 
     return (
@@ -78,7 +82,6 @@ export default function SigningForm({
             className="signing-form"
 
             isForm
-            action="/"
             method="POST"
             isOpen={isOpen}
 

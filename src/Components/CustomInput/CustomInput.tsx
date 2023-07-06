@@ -79,7 +79,7 @@ export default function CustomInput({
                 onBlur={e => {
                     if (type == "number" && e.currentTarget.value.length == 0) { e.currentTarget.value = 0..toString(); }
 
-                    events.onBlur?.(e);
+                    events?.onBlur?.(e);
                 }}
 
                 {...events}

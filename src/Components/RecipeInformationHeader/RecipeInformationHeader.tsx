@@ -13,7 +13,7 @@ import plus_icon from "../../Assets/Icons/plus.svg";
 import clock_icon from "../../Assets/Icons/clock.svg";
 import users_icon from "../../Assets/Icons/users.svg";
 import minus_icon from "../../Assets/Icons/minus.svg";
-import delete_icon from "../../Assets/Icons/delete.svg";
+import delete_icon from "../../Assets/Icons/delete_2.svg";
 import bookmark_icon from "../../Assets/Icons/bookmark.svg";
 
 type RecipeInformationHeaderProps = {

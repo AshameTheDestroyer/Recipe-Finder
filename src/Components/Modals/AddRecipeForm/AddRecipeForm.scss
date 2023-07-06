@@ -22,7 +22,7 @@
         flex-direction: column;
         place-content: start center;
         place-items: start center;
-        gap: 3rem;
+        gap: 1rem;
 
         .custom-input-container {
             width: 100%;
@@ -39,48 +39,58 @@
         }
 
         #ingredient-input-field-container {
+            max-width: max(40vw, 25rem);
+
             display: flex;
             flex-direction: column;
             place-content: start center;
             place-items: start center;
-            gap: 2rem;
+            place-self: center;
+            gap: 1rem;
 
             &>main {
-                $padding-right: 2rem;
+                $padding-right: 1rem;
 
                 max-height: 23vh;
-                max-width: 60vw;
+                width: calc(100% - $padding-right);
 
                 display: inherit;
                 flex-direction: inherit;
                 gap: 2rem;
 
-                padding: 1rem;
                 padding-right: $padding-right;
-                padding-left: 0;
 
-                overflow: auto;
+                overflow-y: auto;
+                overflow-x: hidden;
 
                 &>div {
+                    $padding: 1.5rem;
+
+                    position: relative;
+
                     display: inherit;
                     gap: 1rem;
 
-                    padding: 1rem;
+                    padding: $padding;
 
                     background-color: var(--background-colour);
 
-                    border-radius: 2rem;
+                    border-radius: 1rem;
 
                     .input-displayer {
                         display: inherit;
                         flex-direction: column;
                         gap: 1rem;
+
+                        width: 100%;
                     }
 
                     .custom-button {
-                        place-self: end;
+                        position: absolute;
+                        top: calc($padding / 1.5);
+                        right: calc($padding / 1.5);
 
-                        padding: 1.75rem;
+                        padding: 1.5rem;
 
                         background-color: var(--background-darker-colour);
 
@@ -92,6 +102,7 @@
 
                 .text-with-icon {
                     margin-right: calc(-1 * $padding-right);
+                    max-width: 22rem;
 
                     &>img {
                         height: 4rem;

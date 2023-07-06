@@ -62,9 +62,7 @@ function RecipeSlider({
             <RecipeSlidingButton direction="left" recipeWidthInRem={RECIPE_WIDTH_IN_REM} />
 
             <section> {
-                recipes
-                    .slice(currentPageIndex * shownRecipeCount,
-                        currentPageIndex * shownRecipeCount + shownRecipeCount)
+                recipes.slice(currentPageIndex * shownRecipeCount, currentPageIndex * shownRecipeCount + shownRecipeCount)
                     .map((recipe, i) =>
                         <RecipeCard
                             key={recipe.id}
@@ -144,7 +142,11 @@ function PageButtons({
 
     return (
         <div id="page-button-displayer">
-            <p>{currentPageIndex + 1}</p>
+            <p> {
+                pageCount == 1 ? "" :
+                    currentPageIndex + 1 == pageCount ? pageCount :
+                        `${currentPageIndex + 1}...${pageCount}`
+            } </p>
 
             {
                 PAGE_BUTTON_RAW_VALUES.map(pageButtonRawValue => {

@@ -24,15 +24,15 @@ type EmptyInformationMessage = {
 const EMPTY_INFORMATION_MESSAGES: Array<EmptyInformationMessage> = [{
     iconURL: search_in_list_icon,
     iconAlt: "search_in_list_icon",
-    message: "Search for the recipe you would like to make",
+    message: "Search for the recipe you would like to make.",
 }, {
     iconURL: sad_emoji_icon,
     iconAlt: "sad_emoji_icon",
-    message: "Oops, there're no results for the text \"[placeholder]\", try another one",
+    message: "Oops, there're no results for the text \"[placeholder]\", try another one.",
 }, {
     iconURL: interact_icon,
     iconAlt: "interact_icon",
-    message: "Select the version you would like to learn about of the recipe you searched for",
+    message: "Select the version you would like to learn about of the recipe you searched for.",
 }, {
     iconURL: loading_icon,
     iconAlt: "loading_icon",
@@ -44,15 +44,15 @@ const EMPTY_INFORMATION_MESSAGES: Array<EmptyInformationMessage> = [{
 }, {
     iconURL: offline_cloud_icon,
     iconAlt: "offline_cloud_icon",
-    message: "503! There's been a network issue, loading only from client-side data instead",
+    message: "503! There's been a network issue, loading only from client-side data instead.",
 }, {
     iconURL: offline_cloud_icon,
     iconAlt: "offline_cloud_icon",
-    message: "503! There's been a network issue",
+    message: "503! There's been a network issue.",
 }, {
     iconURL: sad_emoji_icon,
     iconAlt: "sad_emoji_icon",
-    message: "Oops, there're currently no user-made recipes, try adding one",
+    message: "Oops, there're currently no user-made recipes, try adding one.",
 }];
 
 export default function RecipeInformationSection(): React.ReactElement {
@@ -108,7 +108,8 @@ export default function RecipeInformationSection(): React.ReactElement {
                 </> :
                 <EmptyInformationMessageDisplayer {
                     ...((): EmptyInformationMessage => {
-                        if (MainState.searchedText?.toLowerCase() == TEXT_KEY_TO_ALL_RECIPES) { return sadUserMadeInformationMessage; }
+                        if (MainState.searchedText?.toLowerCase() == TEXT_KEY_TO_ALL_RECIPES && MainState.recipes.length == 0) { return sadUserMadeInformationMessage; }
+
                         if (MainState.isLoadingRecipes) { return loadingInformationMessage; }
                         if (MainState.isThereNetworkIssue) { return offlineCloudInformationMessage; }
                         if (!MainState.recipes) { return searchInformationMessage; }

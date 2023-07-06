@@ -88,7 +88,10 @@ export default function RecipeCard({
                 {
                     recipe.isUserMade &&
                     <img
-                        className="user-icon"
+                        className={[
+                            "user-icon",
+                            recipe.publisher == MainState.loggedUser?.username && "current-user-icon",
+                        ].toClassName()}
 
                         src={user_icon}
                         alt="user_icon"

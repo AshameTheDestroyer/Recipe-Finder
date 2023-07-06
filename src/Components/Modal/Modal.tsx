@@ -2,8 +2,8 @@ import React from "react";
 import { createPortal } from "react-dom";
 
 import "../../Utilities/Extensions/ToClassName";
-import ComponentProps, { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 import EitherOrNeither from "../../Utilities/Types/EitherOrNeither";
+import ComponentProps, { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 
 import "./Modal.scss";
 
@@ -15,10 +15,10 @@ export type ModalProps = ComponentProps & {
 
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 } & EitherOrNeither<
-    { isForm: false },
+    { isForm?: false },
     {
         isForm: true;
-        action: string;
+        action?: string;
         method: FormMethods;
         events?: ComponentEventProps<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>;
     }

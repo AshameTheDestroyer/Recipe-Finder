@@ -57,7 +57,6 @@ export default function AddRecipeForm({
             id="add-recipe-form"
 
             isForm
-            action="/"
             method="POST"
             isOpen={isOpen}
 

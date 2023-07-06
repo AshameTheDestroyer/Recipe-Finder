@@ -157,13 +157,6 @@ function SigningButtonDisplayer({
         <div className="button-displayer">
             <CustomButton
                 isStatic
-                text="Login"
-
-                events={{ onClick: _ => setIsLoginFormOpen(true) }}
-            />
-
-            <CustomButton
-                isStatic
                 isArrowed
                 isEmphasized
                 text="Sign up"
@@ -172,6 +165,12 @@ function SigningButtonDisplayer({
                 events={{ onClick: _ => setIsSignUpFormOpen(true) }}
             />
 
+            <CustomButton
+                isStatic
+                text="Login"
+
+                events={{ onClick: _ => setIsLoginFormOpen(true) }}
+            />
         </div>
     );
 }
@@ -190,6 +189,15 @@ function UserInteractionButtonDisplayer({
     return (
         <div className="button-displayer">
             <CustomButton
+                href="/"
+                isArrowed
+                text="Log out"
+                iconPlace="right"
+
+                events={{ onClick: _ => Dispatcher(MainActions.LogUserOut()) }}
+            />
+
+            <CustomButton
                 isStatic
                 text="Bookmarks"
                 iconPlace="left"
@@ -202,20 +210,12 @@ function UserInteractionButtonDisplayer({
             <CustomButton
                 isStatic
                 text="Add"
+                isEmphasized
                 iconPlace="left"
                 iconURL={add_recipe_icon}
                 iconAlt="add_recipe_icon"
 
                 events={{ onClick: _ => setIsAddRecipeFormOpen(true) }}
-            />
-
-            <CustomButton
-                href="/"
-                isArrowed
-                text="Log out"
-                iconPlace="right"
-
-                events={{ onClick: _ => Dispatcher(MainActions.LogUserOut()) }}
             />
         </div>
     );

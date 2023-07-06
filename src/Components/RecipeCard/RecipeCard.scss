@@ -72,6 +72,10 @@
             border: inherit;
 
             border-radius: 100%;
+
+            &.current-user-icon {
+                background-color: var(--main-colour);
+            }
         }
 
         img,
