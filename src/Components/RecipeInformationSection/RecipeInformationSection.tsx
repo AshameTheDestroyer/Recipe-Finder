@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 
 import { StoreType } from "../../store";
-import { MainStateProps, TEXT_KEY_TO_ALL_RECIPES } from "../../MainState";
 import Recipe from "../../Utilities/Classes/Recipe";
+import { MainStateProps, TEXT_KEY_TO_ALL_RECIPES } from "../../MainState";
 import RecipeInformationHeader from "../RecipeInformationHeader/RecipeInformationHeader";
 import RecipeIngredientDisplayer from "../RecipeIngredientDisplayer/RecipeIngredientDisplayer";
 

@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { StoreType } from "../../store";
 import Recipe from "../../Utilities/Classes/Recipe";
+import { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 import { MainActions, MainStateProps, SetRecipeExtraInformation } from "../../MainState";
 
 import "./RecipeCard.scss";
 
 import user_icon from "../../Assets/Icons/user.svg";
-import { ComponentEventProps } from "../../Utilities/Types/ComponentProps";
 
 type RecipeCardProps = {
     recipe: Recipe;

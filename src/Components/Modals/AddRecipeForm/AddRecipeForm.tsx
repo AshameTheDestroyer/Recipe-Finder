@@ -16,8 +16,8 @@ import "./AddRecipeForm.scss";
 import plus_icon from "../../../Assets/Icons/plus.svg";
 import minus_icon from "../../../Assets/Icons/minus.svg";
 import delete_icon from "../../../Assets/Icons/delete.svg";
-import fork_and_knife_icon from "../../../Assets/Icons/fork_and_knife.svg";
 import trash_icon from "../../../Assets/Icons/trash_can.svg";
+import fork_and_knife_icon from "../../../Assets/Icons/fork_and_knife.svg";
 
 type AddRecipeFormProps = Pick<ModalProps, "isOpen" | "setIsOpen">;
 

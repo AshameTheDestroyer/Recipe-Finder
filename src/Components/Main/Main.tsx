@@ -1,9 +1,9 @@
 import React from "react";
 
 import RecipeDisplayer from "../RecipeDisplayer/RecipeDisplayer";
+import RecipeInformationSection from "../RecipeInformationSection/RecipeInformationSection";
 
 import "./Main.scss";
-import RecipeInformationSection from "../RecipeInformationSection/RecipeInformationSection";
 
 export default function Main(): React.ReactElement {
     return (

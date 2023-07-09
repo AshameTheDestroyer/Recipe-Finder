@@ -1,5 +1,5 @@
-import Recipe, { RecipeExtraInformation } from "./Recipe";
 import API_KEY from "../../Assets/JSONs/api_key.json";
+import Recipe, { RecipeExtraInformation } from "./Recipe";
 
 export default class APIHandler {
 

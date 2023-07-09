@@ -45,7 +45,13 @@ export default function BookmarkedRecipeDisplayer({
                             width={`${RECIPE_WIDTH_IN_REM}rem`}
                             defaultColour={COLOURS[i % COLOURS.length]}
 
-                            buttonEvents={{ onClick: _ => setIsOpen(false) }}
+                            buttonEvents={{
+                                onClick: _ => {
+                                    setIsOpen(false);
+                                    document.querySelector(".selected-recipe-card")
+                                        ?.classList.remove("selected-recipe-card");
+                                }
+                            }}
                         />
                     ) :
                     <TextWithIcon
